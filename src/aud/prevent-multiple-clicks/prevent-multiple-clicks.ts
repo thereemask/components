@@ -1,4 +1,12 @@
-import {Directive, EventEmitter, HostListener, OnDestroy, OnInit, Output} from '@angular/core';
+import {
+  Directive,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 
@@ -6,6 +14,7 @@ import {debounceTime} from 'rxjs/operators';
   selector: '[audPreventMultipleClicks]',
 })
 export class PreventMultipleClicks implements OnInit, OnDestroy {
+  @Input() debounce = 200;
   @Output() audPreventMultipleClicks = new EventEmitter<MouseEvent>();
 
   handleButtonClicks = new Subject<MouseEvent>();
@@ -16,7 +25,7 @@ export class PreventMultipleClicks implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.handleButtonClicks
-      .pipe(debounceTime(200))
+      .pipe(debounceTime(this.debounce))
       .subscribe(evt => this.audPreventMultipleClicks.next(evt));
   }
 
