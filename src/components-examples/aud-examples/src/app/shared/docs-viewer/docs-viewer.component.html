@@ -1,0 +1,12 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let tableConfig of tableConfigs">{{tableConfig.header}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of dataSource">
+      <td *ngFor="let tableConfig of tableConfigs">{{row[tableConfig.field]}}</td>
+    </tr>
+  </tbody>
+</table>
